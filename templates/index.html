@@ -1,86 +1,348 @@
 <!DOCTYPE html>
 
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de tareas</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            background: #f4f4f4;
-        }
+<html lang="es"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
-    h1 {
-        color: #333;
+<title>TaskFlow 🚀</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+    * {
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
     }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+            radial-gradient(circle at top left, #ff9a9e, transparent 35%),
+            radial-gradient(circle at bottom right, #667eea, transparent 35%),
+            linear-gradient(135deg, #141e30, #243b55);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+
+    .app {
+        width: 100%;
+        max-width: 550px;
+        background: rgba(255,255,255,0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 30px;
+        padding: 35px;
+
+        box-shadow:
+            0 25px 50px rgba(0,0,0,0.3);
+    }
+
+
+    h1 {
+        text-align: center;
+        margin: 0;
+        font-size: 38px;
+        font-weight: 700;
+
+        background: linear-gradient(90deg,#667eea,#ff6ec7);
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+
+
+    .subtitulo {
+        text-align: center;
+        color: #777;
+        margin-bottom: 30px;
+    }
+
+
+    form {
+        display: flex;
+        gap: 10px;
+    }
+
+
+    input {
+        flex: 1;
+        padding: 15px;
+
+        border-radius: 15px;
+        border: 2px solid #eee;
+
+        font-size: 15px;
+        outline: none;
+
+        transition: .3s;
+    }
+
+
+    input:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 10px #667eea55;
+    }
+
+
+    button {
+
+        background:
+        linear-gradient(135deg,#667eea,#764ba2);
+
+        color:white;
+
+        border:none;
+
+        padding: 15px 22px;
+
+        border-radius:15px;
+
+        cursor:pointer;
+
+        font-weight:600;
+
+        transition:.3s;
+    }
+
+
+    button:hover {
+        transform: translateY(-3px);
+        box-shadow:0 10px 20px #667eea66;
+    }
+
+
+
+    .lista {
+        margin-top:30px;
+    }
+
 
     .tarea {
-        background: white;
-        padding: 10px;
-        margin: 8px 0;
-        border-radius: 5px;
+
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+
+        background:
+        linear-gradient(135deg,#f8f9ff,#ffffff);
+
+        border-radius:18px;
+
+        padding:18px;
+
+        margin-bottom:15px;
+
+        box-shadow:
+        0 8px 20px rgba(0,0,0,.08);
+
+        animation: aparecer .4s ease;
+
     }
+
+
+    @keyframes aparecer {
+
+        from {
+            opacity:0;
+            transform:translateY(20px);
+        }
+
+        to {
+            opacity:1;
+            transform:translateY(0);
+        }
+
+    }
+
+
+
+    .nombre {
+
+        font-size:16px;
+        font-weight:500;
+        color:#333;
+
+    }
+
 
     .completada {
-        text-decoration: line-through;
-        color: gray;
+
+        text-decoration:line-through;
+        color:#999;
+
     }
 
-    a {
-        margin-left: 10px;
-        color: blue;
+
+    .icono {
+
+        font-size:22px;
+        margin-right:8px;
+
     }
+
+
+
+    a {
+
+        text-decoration:none;
+
+        background:
+        linear-gradient(135deg,#00c853,#64dd17);
+
+        color:white;
+
+        padding:10px 15px;
+
+        border-radius:12px;
+
+        font-size:14px;
+
+        font-weight:600;
+
+        transition:.3s;
+
+    }
+
+
+    a:hover {
+
+        transform:scale(1.05);
+
+    }
+
+
+
+    .vacio {
+
+        text-align:center;
+
+        color:#888;
+
+        padding:30px;
+
+        font-size:18px;
+
+    }
+
+
+    .footer {
+
+        text-align:center;
+
+        margin-top:25px;
+
+        color:#aaa;
+
+        font-size:13px;
+
+    }
+
+
 </style>
-```
 
 </head>
 
 <body>
 
-<h1>Mis tareas</h1>
+<div class="app">
+
+<h1>🚀 TaskFlow</h1>
+
+<p class="subtitulo"> Organiza tu día, una tarea a la vez ✨ </p>
+
+
+
 
 <form action="/agregar" method="POST">
-    <input type="text" name="nombre" placeholder="Nueva tarea" required>
-    <button type="submit">Agregar</button>
+
+<input
+type="text"
+name="nombre"
+placeholder="¿Qué necesitas hacer?"
+required
+
+
+
+
+<button> Agregar </button>
+
 </form>
 
-<hr>
+
+
+
+<div class="lista">
 
 {% if tareas %}
 
-```
 {% for tarea in tareas %}
-    <div class="tarea">
 
-        {% if tarea.completada %}
-            <span class="completada">
-                ✔ {{ tarea.nombre }}
-            </span>
-        {% else %}
-            ■ {{ tarea.nombre }}
+<div class="tarea">
 
-            <a href="/completar/{{ loop.index0 }}">
-                Completar
-            </a>
-        {% endif %}
+<div class="nombre">
 
-    </div>
-{% endfor %}
-```
+{% if tarea.completada %}
+
+<span class="completada"> ✅ {{ tarea.nombre }} </span>
 
 {% else %}
 
-```
-<p>No hay tareas todavía</p>
-```
+<span> 📌 {{ tarea.nombre }} </span>
 
 {% endif %}
 
-</body>
-</html>
+</div>
 
+
+
+
+{% if not tarea.completada %}
+
+<a href="/completar/{{ loop.index0 }}"> Completar </a>
+
+{% endif %}
+
+
+
+
+</div>
+
+{% endfor %}
+
+
+
+
+{% else %}
+
+<div class="vacio">
+
+🌱 No hay tareas todavía
+
+<br>
+
+¡Agrega la primera!
+
+</div>
+
+{% endif %}
+
+</div>
+
+
+
+
+<div class="footer">
+
+Hecho con Flask 🐍
+
+</div>
+
+</div>
+
+</body>
+
+</html>
