@@ -1,8 +1,86 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de tareas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f4f4f4;
+        }
+
+```
+    h1 {
+        color: #333;
+    }
+
+    .tarea {
+        background: white;
+        padding: 10px;
+        margin: 8px 0;
+        border-radius: 5px;
+    }
+
+    .completada {
+        text-decoration: line-through;
+        color: gray;
+    }
+
+    a {
+        margin-left: 10px;
+        color: blue;
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+<h1>Mis tareas</h1>
+
+<form action="/agregar" method="POST">
+    <input type="text" name="nombre" placeholder="Nueva tarea" required>
+    <button type="submit">Agregar</button>
+</form>
+
+<hr>
+
 {% if tareas %}
+
+```
 {% for tarea in tareas %}
-{% if tarea.completada %} ✔ {% else %} ■ {% endif %} {{ tarea.nombre }} {% if not tarea.completada %} Completar {% endif %}
+    <div class="tarea">
+
+        {% if tarea.completada %}
+            <span class="completada">
+                ✔ {{ tarea.nombre }}
+            </span>
+        {% else %}
+            ■ {{ tarea.nombre }}
+
+            <a href="/completar/{{ loop.index0 }}">
+                Completar
+            </a>
+        {% endif %}
+
+    </div>
 {% endfor %}
+```
+
 {% else %}
-No hay tareas todavía
+
+```
+<p>No hay tareas todavía</p>
+```
 
 {% endif %}
+
+</body>
+</html>
+
