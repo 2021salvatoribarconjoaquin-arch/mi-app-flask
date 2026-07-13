@@ -1,1 +1,8 @@
+{% if tareas %}
+{% for tarea in tareas %}
+{% if tarea.completada %} ✔ {% else %} ■ {% endif %} {{ tarea.nombre }} {% if not tarea.completada %} Completar {% endif %}
+{% endfor %}
+{% else %}
+No hay tareas todavía
 
+{% endif %}
